@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	const circle = document.querySelectorAll('.circle')
+	const circleBox = document.querySelector('.circleBox')
 
 	const inputValueBar = document.querySelector('.numberProgressBarInput')
 	const progressBar = document.querySelector('.progress__progressBar')
@@ -23,8 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
 			let response = await fetch(api)
 			let result = await response.json()
 
-			console.log(result[0].valueBar)
-
 			progressObj.valueBar = result[0].valueBar
 			progressObj.hide = result[0].hide
 			progressObj.animate = result[0].animate
@@ -34,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			let targetDegree = inputValueBar.value
 
 			if (progressObj.animate) {
-				progressBar.classList.add('animateBar')
+				circleBox.classList.add('animateBar')
 				toggleCheckboxAnimate.checked = true
 			}
 
@@ -45,9 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 			toggleCheckboxAnimate.addEventListener('click', async function () {
-				progressBar.classList.toggle('animateBar')
+				circleBox.classList.toggle('animateBar')
 				progressObj.animate = !progressObj.animate
-				console.log(progressObj) // JSON.stringify(progressObj.animate)
 
 				fetch(`https://cb7a494745af6c2a.mokky.dev/progressBar/1`, {
 					method: 'PATCH',
@@ -57,7 +55,6 @@ document.addEventListener("DOMContentLoaded", function () {
 					body: JSON.stringify(progressObj)
 				})
 
-				console.log(response)
 			})
 
 			toggleCheckboxHide.addEventListener('click', async function () {
@@ -87,11 +84,8 @@ document.addEventListener("DOMContentLoaded", function () {
 					},
 					body: JSON.stringify(progressObj)
 				})
-
 				renderCircle(inputValueBar.value)
 			})
-
-
 			renderCircle(targetDegree)
 
 			function renderCircle(targetDegree) {
@@ -113,15 +107,9 @@ document.addEventListener("DOMContentLoaded", function () {
 				}
 				)
 			}
-
 		}
 		catch (err) {
 			console.log(err)
 		}
-
-
 	}
-
-
-
 })
