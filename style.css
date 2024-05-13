@@ -1,0 +1,196 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	/* display: none; <- Crashes Chrome on hover */
+	-webkit-appearance: none;
+	margin: 0;
+	/* <-- Apparently some margin are still there even though it's hidden */
+}
+
+body {
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 15px;
+}
+
+.progress {
+	max-width: 568px;
+	width: 100%;
+	padding: 20px;
+
+	min-height: 320px;
+	max-height: 568px;
+	display: flex;
+}
+
+.progress__progressBar {
+	background-color: rgb(255, 255, 255);
+	flex: 1 1 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.progress__control {
+
+	flex: 1 1 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.progress .circle {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+}
+
+.progress .circle::after {
+	content: '';
+	position: absolute;
+	width: 70px;
+	height: 70px;
+	background-color: #ffffff;
+	border: 15px solid #ffffff;
+	border-radius: 50%;
+}
+
+.progress .circle .number {
+	position: relative;
+	color: #fff;
+	z-index: 10;
+}
+
+.control__box {
+	position: relative;
+	z-index: 11;
+	padding: 15px;
+	width: 150px;
+	height: 120px;
+	background-color: #fff;
+	gap: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.control__input {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	justify-content: space-between;
+	font-weight: bold;
+}
+
+.control__input input {
+	width: 45px;
+	border-radius: 20px;
+	padding: 5px;
+	outline: 1px solid #444;
+	border: none;
+	text-align: center;
+	font-weight: bold;
+}
+
+.control__input input:focus {
+	outline: 1px solid #005cff;
+}
+
+.toggle {
+	cursor: pointer;
+	display: inline-block;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.toggle-switch {
+	display: inline-block;
+	background: #eaf0f6;
+	border-radius: 16px;
+	width: 45px;
+	height: 27px;
+	position: relative;
+	vertical-align: middle;
+	transition: background 0.25s;
+}
+
+.toggle-switch:before,
+.toggle-switch:after {
+	content: "";
+}
+
+.toggle-switch:before {
+	display: block;
+	background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+	border-radius: 50%;
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+	width: 18px;
+	height: 18px;
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	transition: left 0.25s;
+}
+
+.toggle:hover .toggle-switch:before {
+	background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+.toggle-checkbox:checked+.toggle-switch {
+	background: #005cff;
+}
+
+.toggle-checkbox:checked+.toggle-switch:before {
+	left: 22px;
+}
+
+.toggle-checkbox {
+	position: absolute;
+	visibility: hidden;
+}
+
+.toggle-label {
+	margin-left: 5px;
+	position: relative;
+	top: 2px;
+}
+
+.animateBar {
+	animation: rotateBar 3s infinite;
+}
+
+.hidden {
+	display: none;
+}
+
+@keyframes rotateBar {
+	from {
+		transform: rotate(0);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@media screen and (max-width: 380px) {
+	.progress {
+		flex-wrap: wrap;
+		gap: 40px;
+	}
+}
